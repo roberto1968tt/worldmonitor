@@ -1,0 +1,26 @@
+{
+  "name": "exame-certo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Guia passo a passo, cobertura regional e leilao reverso de orcamentos para exames geneticos no Brasil.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test --experimental-strip-types src/core/*.test.ts api/*.test.ts",
+    "dev:api": "node --experimental-strip-types scripts/dev-api.mjs",
+    "dev:tudo": "node --experimental-strip-types scripts/dev-api.mjs & vite",
+    "build:artifact": "vite build && node scripts/build-artifact.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "playwright": "^1.63.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.36.1"
+  }
+}

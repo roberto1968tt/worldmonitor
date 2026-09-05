@@ -25,12 +25,33 @@ o preço vira disputa.
 
 ```bash
 npm install
-npm run dev:api     # API do leilão em :5274 (memória, sem Redis)
-npm run dev         # app em :5273, com proxy de /api
-npm test            # 31 testes: regras clínicas, leilão e rotas
+npm run dev:api        # API do leilão em :5274 (memória, sem Redis)
+npm run dev            # app em :5273, com proxy de /api
+npm test               # 31 testes: regras clínicas, leilão e rotas
 npm run typecheck
 npm run build
+npm run build:artifact # empacota tudo em um HTML único, para publicar como Artifact
 ```
+
+Para o app falar com as rotas de `api/` em vez de usar o banco do Artifact,
+construa com `VITE_API_PROPRIA=1`.
+
+## Onde o leilão guarda o estado
+
+`src/ui/store.ts` tem três implementações da mesma interface, escolhidas em
+tempo de execução — e a página diz ao usuário em qual está:
+
+| Store | Quando | Regras validadas onde |
+|---|---|---|
+| `StoreHttp` | deploy próprio, com `api/` na frente do Redis | **servidor** |
+| `StoreDb` | publicado como Artifact, sobre a capacidade `db` | cliente |
+| `StoreLocal` | nenhuma das duas | cliente, só na aba |
+
+No `StoreDb` o estado é real e compartilhado entre quem abre a página, mas a
+validação roda no navegador: serve para ver o mecanismo, não para valer
+dinheiro. Nesse modo a página oferece simular lances a partir do catálogo real,
+passando pelo mesmo `validarLance` da API — lance que a regra recusa não entra,
+igual em produção.
 
 O `npm test` usa o type stripping nativo do Node (>= 22.6), sem passo de build.
 

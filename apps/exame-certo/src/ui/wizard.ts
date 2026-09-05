@@ -54,11 +54,31 @@ export function renderWizard(
 
   limpar(raiz);
 
+  const exemplo = () => {
+    Object.assign(r, {
+      objetivo: 'paternidade',
+      momento: 'gestacao',
+      semanasGestacao: 9,
+      gestacaoUnica: true,
+      finalidade: 'informativo',
+      ufPartes: ['PR', 'SP'],
+      precisaColetaDomiciliar: true,
+      supostoPaiDisponivel: true,
+      orcamentoMaximoCentavos: null,
+    } satisfies Respostas);
+    redesenhar();
+  };
+
   raiz.append(
     h('h1', {}, 'Que exame genético você precisa, e como fazer sem errar'),
     h('p', { class: 'sub' },
-      'Responda o que der. A cada resposta o app corta o que não serve para o seu caso e ' +
-      'monta o passo a passo. Nada aqui pede seu nome, CPF ou endereço.'),
+      'Responda o que der. A cada resposta o app corta o que não serve para o seu caso, ' +
+      'mostra quem coleta na sua região e monta o passo a passo com os documentos de cada ' +
+      'etapa. Nada aqui pede seu nome, CPF ou endereço.'),
+    h('div', { class: 'acoes' },
+      h('button', { class: 'botao secundario mini', type: 'button', onClick: exemplo },
+        'Preencher com um caso de exemplo'),
+    ),
   );
 
   raiz.append(pergunta(

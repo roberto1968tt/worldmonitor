@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "test": "node --test --experimental-strip-types src/core/*.test.ts api/*.test.ts",
     "dev:api": "node --experimental-strip-types scripts/dev-api.mjs",
-    "dev:tudo": "node --experimental-strip-types scripts/dev-api.mjs & vite"
+    "dev:tudo": "node --experimental-strip-types scripts/dev-api.mjs & vite",
+    "build:artifact": "vite build && node scripts/build-artifact.mjs"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",
